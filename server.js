@@ -2,23 +2,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
-const app = express();
-
-// 🔐 ADD THESE HERE
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
-
 const User = require("./models/User");
-
 const Record = require("./models/Record");
 const auth = require("./middleware/auth");
 
+// 2️⃣ App setup (ONLY ONCE)
+const app = express();
 
-// 2️⃣ App setup
-
+// ✅ CORS — MUST BE FIRST
 app.use(cors({
     origin: "https://sgpa-frontend.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -27,8 +21,9 @@ app.use(cors({
 
 app.options("*", cors());
 
-
+// JSON parser AFTER CORS
 app.use(express.json());
+
 
 // 3️⃣ DB connection
 mongoose.connect(process.env.MONGO_URI)
