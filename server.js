@@ -17,7 +17,17 @@ const auth = require("./middleware/auth");
 
 // 2️⃣ App setup
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: [
+        "https://sgpa-frontend.onrender.com",
+        "http://localhost:5500",   // for local testing
+        "http://127.0.0.1:5500"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+app.options("*", cors());
+
 app.use(express.json());
 
 // 3️⃣ DB connection
