@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const app = express();
+
 // 🔐 ADD THESE HERE
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -16,17 +18,15 @@ const auth = require("./middleware/auth");
 
 
 // 2️⃣ App setup
-const app = express();
+
 app.use(cors({
-    origin: [
-        "https://sgpa-frontend.onrender.com",
-        "http://localhost:5500",   // for local testing
-        "http://127.0.0.1:5500"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://sgpa-frontend.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 app.options("*", cors());
+
 
 app.use(express.json());
 
